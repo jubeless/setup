@@ -1,12 +1,40 @@
-setup.git
-=========
-Clone and run this on a new EC2 instance running Ubuntu 14.X.X LTS to
-configure both the machine and your individual development environment as
-follows:
+#! /usr/bin/env bash
 
-```sh
+# Simple setup.sh for configuring MAC
+# for headless setup.
+
 cd $HOME
-sudo apt-get install -y git-core
-git clone https://github.com/startup-class/setup.git
-./setup/setup.sh
-```
+
+#create backup file
+NOW=$(date +"%m-%d-%Y-%H-%M")
+FOLDER="configs.backup.$NOW"
+mkdir "$FOLDER"
+
+if [ -f .bash_profile ]; then
+  mv .bash_profile "$FOLDER/"
+fi
+
+if [ -f .bashrc ]; then
+  mv .bashrc "$FOLDER/"
+fi
+
+if [ -f .bashrc_custom ]; then
+  mv .bashrc_custom "$FOLDER/"
+fi
+
+# git pull and install dotfiles as well
+
+if [ -d ./dotfiles/ ]; then
+    mv dotfiles dotfiles.old
+fi
+
+git clone https://github.com/juliencassis/dotfiles
+
+#ln -s dotfiles/.bash_profile .
+#ln -s dotfiles/.bashrc .
+#ln -s dotfiles/.bashrc_custom .
+
+#TO DO: Did not test these comamnds... Iknow it works with the one above
+cp dotfiles/.bash_profile .
+cp dotfiles/.bashrc .
+cp dotfiles/.bashrc_custom .
