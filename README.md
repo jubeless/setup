@@ -7,6 +7,6 @@ follows:
 ```sh
 cd $HOME
 sudo apt-get install -y git-core
-git clone https://github.com/startup-class/setup.git
+git clone https://github.com/juliencassis/setup.git
 ./setup/setup.sh
 ```
